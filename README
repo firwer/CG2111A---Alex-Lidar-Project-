@@ -1,0 +1,37 @@
+================================================================================
+                           CG2111A PROJECT CODEBASE
+
+                             "ALEX TO THE RESCUE"
+
+                                 Group: B04-4A
+                        Poh Wei Pin             A0233849U
+                        Samuel Tan Sze Wee      A0234575Y
+                        Vu Van Dung             A0243323R
+================================================================================
+
+Directory structure and content:
+.
+├── README                  This file
+│
+├── alex                    Arduino code to power Alex
+│   ├── alex.ino
+│   ├── constants.h
+│   ├── packet.h
+│   └── serialize.zip
+│
+├── alex-pi                 C++ program to control Alex from RPi
+│   ├── alex-pi.cpp
+│   ├── constants.h
+│   ├── packet.h
+│   ├── serial.cpp
+│   ├── serial.h
+│   ├── serialize.cpp
+│   └── serialize.h
+│
+├── lidar                   C++ program used to operate RPLidar and send data
+│   ├── lidar.cpp
+│
+└── server                  A node-based web server to display and handle data
+    ├── index.html        - The graphical browser-based front-end
+    ├── package.json
+    └── server.js         - The server code

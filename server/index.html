@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CG2111A Plot</title>
+  </head>
+  <body style="margin: 0">
+    <div
+      style="height: 100vh; width: 100vw; display: grid; place-items: center"
+      id="container"
+    >
+      <canvas
+        id="canva"
+        width="600"
+        height="600"
+        style="border: 1px solid black"
+      >
+      </canvas>
+    </div>
+    <script>
+      function render(value) {
+        const canvas = document.getElementById("canva");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Alex
+        ctx.beginPath();
+        ctx.moveTo(300 - 30, 300 - 50);
+        ctx.lineTo(300 - 30, 300 + 50);
+        ctx.lineTo(300 + 30, 300 + 50);
+        ctx.lineTo(300 + 30, 300 - 50);
+        ctx.lineTo(300 - 30, 300 - 50);
+        ctx.strokeStyle = "#ff0000";
+        ctx.stroke();
+        ctx.closePath();
+
+        // Draw grids
+        for (let i = -7; i <= 7; i++) {
+          ctx.beginPath();
+          ctx.moveTo(300 + i * 40, 0);
+          ctx.lineTo(300 + i * 40, 600);
+          ctx.strokeStyle = "rgba(255, 0, 0, 0.2)";
+          ctx.stroke();
+          ctx.closePath();
+          ctx.beginPath();
+          ctx.moveTo(0, 300 + i * 40);
+          ctx.lineTo(600, 300 + i * 40);
+          ctx.stroke();
+          ctx.closePath();
+        }
+
+        // Render plot points
+        for (let i = 0; i < value.length; i++) {
+          ctx.beginPath();
+          ctx.arc(value[i][0], value[i][1], 3, 0, 2 * Math.PI);
+          ctx.strokeStyle = `rgba(0, 0, 0, ${value[i][2] / 255})`;
+          ctx.stroke();
+          ctx.closePath();
+        }
+      }
+
+      // Subscribe to data changes
+      const event = new EventSource("http://localhost:4000/data");
+      event.onmessage = (e) => render(eval(e.data));
+    </script>
+  </body>
+</html>
